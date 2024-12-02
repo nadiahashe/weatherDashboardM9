@@ -7,9 +7,13 @@ The Weather Dashboard is a practical application that connects real-world data t
 With the help of OpenWeatherMap's API, this dashboard allows users to check real-time weather conditions and a 5-day forecast for any city. It tackles the everyday question: "What's the weather today or tomorrow?" This project showcases skills in fetching, processing, and displaying API data while creating a user-friendly interface.
 
 Table of Contents:
+
 Installation
+
 Usage
+
 License
+
 Credits
 
 
