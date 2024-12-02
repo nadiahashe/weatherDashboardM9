@@ -87,20 +87,6 @@ class WeatherService {
       return ''; // Return empty string
     }
   }
-  // TODO: Create fetchAndDestructureLocationData method
-  //fetches location data (on city name) and returns destructured coordinates
-  // private async fetchAndDestructureLocationData() {
-  //   try{
-  //     const query = this.buildGeocodeQuery();
-  //     const locationData = await this.fetchLocationData(query);
-  //     return this.destructureLocationData(locationData);
-  //   } catch (err) {
-  //     console.log('Error: Unable to fetchAndDestructureLocationData', err);
-  //     return { latitude: 0, longitude: 0 }; // Return default coordinates
-  //   }
-  // }
-  // TODO: Create fetchWeatherData method
-  // creates a fetch request for weather data based on coordinates (after building query)
   private async fetchWeatherData(coordinates: Coordinates) {
     try {
       const query = this.buildWeatherQuery(coordinates);
