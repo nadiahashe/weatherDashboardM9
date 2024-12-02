@@ -1,17 +1,82 @@
-// TODO: Define a City class with name and id properties
+import * as fs from 'fs/promises';
 
-// TODO: Complete the HistoryService class
+class City {
+  name: string;
+  id: string;
+  constructor(name: string, id: string) {
+    this.name = name;
+    this.id = id;
+  }
+}
+
 class HistoryService {
-  // TODO: Define a read method that reads from the searchHistory.json file
-  // private async read() {}
-  // TODO: Define a write method that writes the updated cities array to the searchHistory.json file
-  // private async write(cities: City[]) {}
-  // TODO: Define a getCities method that reads the cities from the searchHistory.json file and returns them as an array of City objects
-  // async getCities() {}
-  // TODO Define an addCity method that adds a city to the searchHistory.json file
-  // async addCity(city: string) {}
-  // * BONUS TODO: Define a removeCity method that removes a city from the searchHistory.json file
-  // async removeCity(id: string) {}
+  private async read(): Promise<string> {
+    try {
+      return await fs.readFile('db/searchHistory.json', { encoding: 'utf8' });
+    } catch (error) {
+      if (error instanceof Error && error.message.includes('ENOENT')) {
+        // If file does not exist, initialize it
+        await this.write([]);
+        return '[]';
+      }
+      throw error; // Re-throw unknown errors
+    }
+  }
+
+  private async write(cities: City[]) {
+    try {
+      await fs.writeFile('db/searchHistory.json', JSON.stringify(cities, null, '\t'));
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error('Failed to write file:', error.message);
+      } else {
+        console.error('An unknown error occurred while writing:', error);
+      }
+    }
+  }
+
+  async getCities(): Promise<City[]> {
+    try {
+      const cities = await this.read();
+      return JSON.parse(cities) as City[];
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error('Failed to parse cities:', error.message);
+      } else {
+        console.error('An unknown error occurred while reading cities:', error);
+      }
+      return [];
+    }
+  }
+
+  async addCity(name: string, id: string) {
+    try {
+      const newCity = new City(name, id);
+      const existingCities = await this.getCities();
+      const totalCities = [...existingCities, newCity];
+      await this.write(totalCities);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error('Failed to add city:', error.message);
+      } else {
+        console.error('An unknown error occurred while adding city:', error);
+      }
+    }
+  }
+
+  async removeCity(id: string) {
+    try {
+      let existingCities = await this.getCities();
+      existingCities = existingCities.filter((city) => city.id !== id);
+      await this.write(existingCities);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error('Failed to remove city:', error.message);
+      } else {
+        console.error('An unknown error occurred while removing city:', error);
+      }
+    }
+  }
 }
 
 export default new HistoryService();
