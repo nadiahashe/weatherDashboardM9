@@ -17,8 +17,13 @@ Installation:
 If you want to skip installation and just use the weather app directly, the project is hosted online here: https://weatherdashboardm9.onrender.com
 The following steps will allow you to run the code locally:
 Step 1: Navigate to : https://github.com/nadiahashe/weatherDashboardM9
+
 Step 2: Clone the repo to download it onto your local computer
+
 Step 3: Open download in the IDE of your choosing, right click "server" folder structure, run in integrated terminal
+
 Step 4: Run the command npm install to install the dependencies
+
 Step 5: After package installation, run the command npm run dev
+
 Step 6: Navigate to http://localhost:3001 in the browser or environment of your choosing (Insomnia)
